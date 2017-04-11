@@ -2,7 +2,8 @@ module Users
   class SessionsController < Devise::SessionsController
     after_action :store_session_data, only: [:create]
     before_action :add_email_to_user, only: [:create]
-    skip_authorization_check
+    
+    skip_authorization_check if respond_to?(:skip_authorization_check)
 
     protected
 

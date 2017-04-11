@@ -273,7 +273,7 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
-  if config.fake_ldap
+  if Rails.configuration.fake_ldap
     config.warden do |manager|
       strategies = manager.default_strategies(:scope => :user)
       strategies[strategies.index(:ldap_authenticatable)] = :fake_ldap_authenticatable
