@@ -4,9 +4,16 @@ module AkerAuthenticationGem::AuthController
 
       before_action do
         request.parameters["user"]["email"] += '@sanger.ac.uk' unless request.parameters["user"].nil? || request.parameters["user"]["email"].include?('@')
-        authenticate_user!
+        authenticate_user! unless self.class.skip_authenticate_user?
       end
 
+      def self.skip_authenticate_user?
+        (self.class_variable_defined? "@@skip_authenticate_user") && @@skip_authenticate_user
+      end
+
+      def self.skip_authenticate_user
+        @@skip_authenticate_user = true
+      end
 
       def context
         {current_user: current_user}
