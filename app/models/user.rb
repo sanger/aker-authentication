@@ -1,10 +1,23 @@
 class User < ApplicationRecord
   devise :ldap_authenticatable, :rememberable, :trackable
 
-  attr_reader :groups
+  attr_accessor :groups
 
   def groups
     @groups ||= fetch_groups
+  end
+
+  def to_jwt_data
+    {"groups" => groups}.merge(attributes)
+  end
+
+  def self.from_jwt_data(hash)
+    #debugger
+    return nil if hash.nil?
+    obj = User.new(hash.reject{|k,v| k=='groups'})
+    obj.groups = hash['groups']
+    #debugger
+    obj
   end
 
   def fetch_groups

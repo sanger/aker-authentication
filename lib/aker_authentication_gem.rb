@@ -15,6 +15,7 @@ require "request_store"
 require "jwt"
 
 module AkerAuthenticationGem
+  autoload :AuthController, 'auth_controller'
   class Engine < ::Rails::Engine
     isolate_namespace AkerAuthenticationGem
   end
