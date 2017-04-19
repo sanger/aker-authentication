@@ -8,11 +8,11 @@ module AkerAuthenticationGem::AuthController
       end
 
       def self.skip_authenticate_user?
-        (self.class_variable_defined? "@@skip_authenticate_user") && @@skip_authenticate_user
+        @skip_authenticate_user
       end
 
       def self.skip_authenticate_user
-        @@skip_authenticate_user = true
+        @skip_authenticate_user = true
       end
 
       def context
