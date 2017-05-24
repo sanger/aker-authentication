@@ -2,17 +2,22 @@ module AkerAuthenticationGem::AuthController
   def self.included(base)
     base.instance_eval do |klass|
 
-      before_action do
+      before_action do |controller|
         request.parameters["user"]["email"] += '@sanger.ac.uk' unless request.parameters["user"].nil? || request.parameters["user"]["email"].include?('@')
-        authenticate_user! unless self.class.skip_authenticate_user?
+        authenticate_user! unless self.class.skip_authenticate_user?(self.action_name.to_sym)
       end
 
-      def self.skip_authenticate_user?
-        @skip_authenticate_user
+      def self.skip_authenticate_user?(action)
+        if @options_authenticate_user && @options_authenticate_user[:only].include?(action)
+          return @skip_authenticate_user
+        end
+        return false
       end
 
-      def self.skip_authenticate_user
+
+      def self.skip_authenticate_user(options=nil)
         @skip_authenticate_user = true
+        @options_authenticate_user = options
       end
 
       def context
