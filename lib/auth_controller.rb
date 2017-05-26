@@ -8,7 +8,9 @@ module AkerAuthenticationGem::AuthController
       end
 
       def self.skip_authenticate_user?(action)
-        if @options_authenticate_user && @options_authenticate_user[:only].include?(action)
+        if @options_authenticate_user.nil? ||
+            @options_authenticate_user[:only].nil? ||
+            @options_authenticate_user[:only].include?(action)
           return @skip_authenticate_user
         end
         return false
