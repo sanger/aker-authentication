@@ -2,10 +2,8 @@ require "spec_helper"
 
 RSpec.describe AkerAuthenticationGem do
   it "has a version number" do
-    expect(AkerAuthenticationGem::VERSION).not_to be nil
+    expect(AkerAuthenticationGem::VERSION).not_to be_nil
   end
 
-  it "does something useful" do
-    expect(false).to eq(true)
-  end
+  it "does something useful"
 end
