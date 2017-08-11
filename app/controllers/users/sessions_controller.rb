@@ -4,11 +4,12 @@ module Users
     
     skip_authorization_check if respond_to?(:skip_authorization_check)
 
-  protected
-
-    def store_session_data
-      session["user"] = current_user
+    def devise_user
+      warden.authenticate(scope: :user)
     end
 
+    def store_session_data
+      session["user"] = devise_user
+    end
   end
 end
