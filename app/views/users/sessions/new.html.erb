@@ -1,5 +1,13 @@
 <h2>Log in</h2>
 
+<% unless flash.empty? %>
+<div class="alert alert-danger" role="alert">
+  <% flash.each do |key, value| %>
+    <%= value %>
+  <% end %>
+</div>
+<% end %>
+
 <% if Rails.configuration.fake_ldap %>
 
 <div class="alert alert-danger" role="alert">
@@ -7,6 +15,7 @@
 </div>
 
 <% end %>
+
 
 <%= bootstrap_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
   <div class="form-group">
